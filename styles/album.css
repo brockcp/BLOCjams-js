@@ -65,6 +65,7 @@ body.album {
    background-color: white;
    color: rgb(210, 40, 123);
    border-radius: 50% 50%;
+   padding-top:7px;/*BROCK ADDED 4/23*/
    display: inline-block;
    width: 28px;
    height:28px;

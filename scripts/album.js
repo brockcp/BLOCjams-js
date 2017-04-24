@@ -72,31 +72,103 @@ var setCurrentAlbum = function(album) {
     }
 };
 
+//CHANGE SONG NUMBER TO PAUSE BUTTON. ALWAYS RETURNS SONG ITEM.
+var findParentByClassName = function(element, targetClass) {
+    if (element) {
+        var currentParent = element.parentElement;
+        while (currentParent.className !== targetClass && currentParent.className !== null) {
+            currentParent = currentParent.parentElement;
+        }
+        return currentParent;
+    }
+};
+
+//TAKES ELEMENT AND USES SWITCH TO RETURN ELEMENT WITH CLASS OF 'song-item-number'
+var getSongItem = function(element) {
+    switch (element.className) {
+        case 'album-song-button':
+        case 'ion-play':
+        case 'ion-pause':
+            return findParentByClassName(element, 'song-item-number');
+        case 'album-view-song-item':
+            return element.querySelector('.song-item-number');
+        case 'song-item-title':
+        case 'song-item-duration':
+            return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
+        case 'song-item-number':
+            return element;
+        default:
+            return;
+    }
+};
+
+var clickHandler = function(targetElement) {
+
+  var songItem = getSongItem(targetElement);
+
+  if (currentlyPlayingSong === null) {
+       songItem.innerHTML = pauseButtonTemplate;
+       currentlyPlayingSong = songItem.getAttribute('data-song-number');
+
+    //REVERTS BUTTON BACK TO PLAY BUTTON IF PLAYING BUTTON CLICKED AGAIN
+  } else if (currentlyPlayingSong === songItem.getAttribute('data-song-number')) {
+       songItem.innerHTML = playButtonTemplate;
+       currentlyPlayingSong = null;
+
+  //IF CLICKED SONG IS NOT ACTIVE SET CONTENT OF NEW SONG TO PAUSE BUTTON
+  } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) {
+           var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]');
+           currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
+           songItem.innerHTML = pauseButtonTemplate;
+           currentlyPlayingSong = songItem.getAttribute('data-song-number');
+  }
+
+};
+
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
 var songRows = document.getElementsByClassName('album-view-song-item');
-
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
+//NULL SO THAT NO SONG ID'ed AS PLAYING UNTIL SELECTED
+var currentlyPlayingSong = null;
 
 window.onload = function() {
     setCurrentAlbum(albumRadiohead);
 
-songListContainer.addEventListener('mouseover',function(event){
-  if(event.target.parentElement.className === 'album-view-song-item'){
-    event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
-  }
+    songListContainer.addEventListener('mouseover',function(event){
+      //TO SELECT ONLY TARGETED ROW. PARENTELEMENT+CLASSNAME ENSURE THIS. QUERY SELECTOR RETURNS ONLY SINGLE ELEMENT.
+      if (event.target.parentElement.className === 'album-view-song-item') {
+           event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
+           var songItem = getSongItem(event.target);
+
+      if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
+                songItem.innerHTML = playButtonTemplate;
+      }
+   }
 });
 
+//DETECTS MOUSELEAVE
 for (var i = 0; i < songRows.length; i++) {
      songRows[i].addEventListener('mouseleave', function(event) {
-       this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
- 
+
+       // CACHEs SONG ITEM AND LEaves IN VAR.
+       var songItem = getSongItem(event.target);
+       var songItemNumber = songItem.getAttribute('data-song-number');
+
+       //CHANGEs CONTENT IF ITEM MOUSE LEAVING NOT CURRENT SONG
+       if (songItemNumber !== currentlyPlayingSong) {
+           songItem.innerHTML = songItemNumber;
+       }
      });
+
+     songRows[i].addEventListener('click', function(event) {
+        clickHandler(event.target);
+   });
  }
+var albums = [albumPicasso, albumMarconi, albumRadiohead];
+var index = 1;
 
-    var albums = [albumPicasso, albumMarconi, albumRadiohead];
-    var index = 1;
-
-    albumImage.addEventListener('click',function(event){
+albumImage.addEventListener('click',function(event){
       setCurrentAlbum(albums[index]);
       index++;
       if(index == albums.length){
