@@ -12,7 +12,6 @@ var albumPicasso = {
         { title: 'Magenta', duration: '2:15'}
     ]
 };
-
 var albumMarconi = {
     title: 'The Telephone',
     artist: 'Guglielmo Marconi',
@@ -27,7 +26,6 @@ var albumMarconi = {
         { title: 'Wrong phone number', duration: '2:15'}
     ]
 };
-
 var albumRadiohead = {
    title: 'OK Computer',
    artist: 'Radiohead',
@@ -122,7 +120,6 @@ var clickHandler = function(targetElement) {
            songItem.innerHTML = pauseButtonTemplate;
            currentlyPlayingSong = songItem.getAttribute('data-song-number');
   }
-
 };
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
@@ -138,7 +135,6 @@ window.onload = function() {
     songListContainer.addEventListener('mouseover',function(event){
       //TO SELECT ONLY TARGETED ROW. PARENTELEMENT+CLASSNAME ENSURE THIS. QUERY SELECTOR RETURNS ONLY SINGLE ELEMENT.
       if (event.target.parentElement.className === 'album-view-song-item') {
-           event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
            var songItem = getSongItem(event.target);
 
       if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
@@ -165,6 +161,7 @@ for (var i = 0; i < songRows.length; i++) {
         clickHandler(event.target);
    });
  }
+
 var albums = [albumPicasso, albumMarconi, albumRadiohead];
 var index = 1;
 
