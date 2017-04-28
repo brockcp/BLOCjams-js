@@ -42,6 +42,7 @@ var albumRadiohead = {
 };
 
 var createSongRow = function(songNumber, songName, songLength) {
+    //HTML TARGET IS <table class="album-view-song-list">
     var template =
        '<tr class="album-view-song-item">'
      + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
@@ -71,22 +72,31 @@ var setCurrentAlbum = function(album) {
 };
 
 //CHANGE SONG NUMBER TO PAUSE BUTTON. ALWAYS RETURNS SONG ITEM.
+//TRAVERSES DOM UPWARD UNTIL PARENT WITH SPECIFIED CLASS FOUND
 var findParentByClassName = function(element, targetClass) {
-    if (element) {
-        var currentParent = element.parentElement;
-        while (currentParent.className !== targetClass && currentParent.className !== null) {
+      var currentParent = element.parentElement;
+        if (currentParent) {
+        while (currentParent.className && currentParent.className != targetClass) {
             currentParent = currentParent.parentElement;
         }
+        if(currentParent.className === targetClass){
         return currentParent;
-    }
+      } else {
+        alert('no parent with that class found');
+      }
+    } else{alert('no parent found');
+  }
 };
 
-//TAKES ELEMENT AND USES SWITCH TO RETURN ELEMENT WITH CLASS OF 'song-item-number'
+//RETURNS TARGET(ELEMENT) WITH CLASS OF 'song-item-number'
 var getSongItem = function(element) {
     switch (element.className) {
         case 'album-song-button':
         case 'ion-play':
+                    //return findParentByClassName(element, 'song-item-number');//test
         case 'ion-pause':
+                    //return findParentByClassName(element, 'bogus-class');//test
+        case 'ion-stop':
             return findParentByClassName(element, 'song-item-number');
         case 'album-view-song-item':
             return element.querySelector('.song-item-number');
@@ -126,28 +136,31 @@ var songListContainer = document.getElementsByClassName('album-view-song-list')[
 var songRows = document.getElementsByClassName('album-view-song-item');
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-//NULL SO THAT NO SONG ID'ed AS PLAYING UNTIL SELECTED
-var currentlyPlayingSong = null;
+var currentlyPlayingSong = null; //NULL SO THAT NO SONG ID'ed AS PLAYING UNTIL SELECTED
 
 window.onload = function() {
-    setCurrentAlbum(albumRadiohead);
 
+    setCurrentAlbum(albumMarconi);
+
+    //MOUSEOVER
     songListContainer.addEventListener('mouseover',function(event){
-      //TO SELECT ONLY TARGETED ROW. PARENTELEMENT+CLASSNAME ENSURE THIS. QUERY SELECTOR RETURNS ONLY SINGLE ELEMENT.
+
+      //RESTRICTS TARGET TO TABLE ROW. USING PARENTELEMENT & CLASSNAME TO ONLY ACT ON TABLE ROW
       if (event.target.parentElement.className === 'album-view-song-item') {
            var songItem = getSongItem(event.target);
 
+      //CHANGE TO PLAY BUTTON
       if (songItem.getAttribute('data-song-number') !== currentlyPlayingSong) {
                 songItem.innerHTML = playButtonTemplate;
       }
-   }
-});
+      }
+    });
 
-//DETECTS MOUSELEAVE
-for (var i = 0; i < songRows.length; i++) {
+    //MOUSELEAVE USE LOOP TO ATTACH LISTENERS TO EACH TABLE ROW
+    for (var i = 0; i < songRows.length; i++) {
      songRows[i].addEventListener('mouseleave', function(event) {
 
-       // CACHEs SONG ITEM AND LEaves IN VAR.
+       //CACHEs SONG ITEM AND LEaves IN VAR.
        var songItem = getSongItem(event.target);
        var songItemNumber = songItem.getAttribute('data-song-number');
 
@@ -157,15 +170,17 @@ for (var i = 0; i < songRows.length; i++) {
        }
      });
 
+     //CLICK
      songRows[i].addEventListener('click', function(event) {
         clickHandler(event.target);
-   });
- }
+     });
+    }
 
-var albums = [albumPicasso, albumMarconi, albumRadiohead];
-var index = 1;
+  var albums = [albumPicasso, albumMarconi, albumRadiohead];
+  var index = 1;
 
-albumImage.addEventListener('click',function(event){
+    //ALBUM ROTATE
+    albumImage.addEventListener('click',function(event){
       setCurrentAlbum(albums[index]);
       index++;
       if(index == albums.length){
