@@ -71,7 +71,7 @@ var setCurrentAlbum = function(album) {
     }
 };
 
-//LOOP UP DOM TREE TO SELECT PARENT OF ELEMENT WITH SPECIFIED CLASS. FEEDS TO SWITCH BELOW
+//LOOP UP DOM TREE TO SELECT PARENT OF ELEMENT WITH SPECIFIED CLASS.
 var findParentByClassName = function(element, targetClass) {
     if (element) {
         var currentParent = element.parentElement;
