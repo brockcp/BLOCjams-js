@@ -3,7 +3,7 @@ window.onload = function(){ //necessary if no local albums
   var urlPassedAlbum = window.location.hash.substr(1);
 
   for(var i=0, len=albums.length; i<len; i++){
-    if(albums[i].title == urlPassedAlbum){
+    if(albums[i].id == urlPassedAlbum){
       var chosenAlbum = albums[i];
     }
   }
@@ -16,8 +16,7 @@ window.onload = function(){ //necessary if no local albums
   albumTitle.innerHTML = chosenAlbum.title;
   albumArtist.innerHTML = chosenAlbum.artist;
   albumReleaseInfo.innerHTML = chosenAlbum.year + ' ' + chosenAlbum.label;
-  document.getElementById("fff").src = chosenAlbum.albumArtUrl;
-
+  document.getElementById("album-art").src = chosenAlbum.albumArtUrl;
 
   var createSongRow = function(songNumber, songName, songLength) {
       //HTML TARGET IS <table class="album-view-song-list">
@@ -35,6 +34,5 @@ window.onload = function(){ //necessary if no local albums
   for(var j = 0; j<chosenAlbum.songs.length; j++){
     albumSongList.innerHTML += createSongRow(j+1, chosenAlbum.songs[j].title, chosenAlbum.songs[j].duration);
   }
-
 
 }

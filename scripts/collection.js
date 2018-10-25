@@ -3,11 +3,11 @@ albumItemTemplate = '';
 for(var i=0, len=albums.length; i<len; i++){
   var albumBuild =
      '<div class="collection-album-container column fourth">'
-   + '  <a href="album.html#' + albums[i].title +'">'
+   + '  <a href="album.html#' + albums[i].id +'">'
    + '    <img src="' + albums[i].albumArtUrl + '"/>'
    + '    <div class="collection-album-info caption">'
    + '      <p>'
-   + '        <a class="album-name" href="album.html#' + albums[i].title +'">' + albums[i].title + '</a>'
+   + '        <a class="album-name" href="album.html#' + albums[i].id +'">' + albums[i].title + '</a>'
    + '        <br/>'
    + '        <a class="">' + albums[i].artist + '</a>'
    + '        <br/>'
