@@ -3,7 +3,7 @@ var setSong = function(songNumber) {
     currentSoundFile.stop();
   }
   currentlyPlayingSongNumber = parseInt(songNumber);
-  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+  currentSongFromAlbum = chosenAlbum.songs[songNumber - 1];
   currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
    formats: [ 'mp3' ],
    preload: true
@@ -53,7 +53,7 @@ var createSongRow = function(songNumber, songName, songLength) {
             currentSoundFile.play();
             updateSeekBarWhileSongPlays();
             $(this).html(pauseButtonTemplate);
-            currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+            currentSongFromAlbum = chosenAlbum.songs[songNumber - 1];
             updatePlayerBarSong();
             var $volumeFill = $('.volume .fill');
             var $volumeThumb = $('.volume .thumb');
@@ -295,8 +295,8 @@ $(document).ready(function() {
 
 var updatePlayerBarSong = function() {
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
-  $('.currently-playing .artist-name').text(currentAlbum.artist);
-  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
+  $('.currently-playing .artist-name').text(chosenAlbum.artist);
+  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + chosenAlbum.artist);
   $('.main-controls .play-pause').html(playerBarPauseButton);
   setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
 };

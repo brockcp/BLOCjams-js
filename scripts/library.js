@@ -7,14 +7,19 @@ var albums = [
   year: '1997',
   albumArtUrl: 'assets/images/album_covers/003.png',
   songs: [
-    {title: 'Airbag', duration:'3:43'},
-    {title: 'Paranoid Android', duration:'4;44'},
-    {title: 'Subterranean Homesick Alien', duration:'6:23'},
-    {title: 'Exit Music', duration:'8:32'},
-    {title: 'Let Down', duration:'5:15'},
-    {title: 'Karma Police', duration:'3:35'},
-    {title: 'Fitter Happier', duration:'2:25'},
-    {title: 'Electioneering', duration:'5:55'}
+    { title: 'Blue', duration: 161.71, audioUrl: 'assets/music/blue'},
+    { title: 'Green', duration: 103.96, audioUrl: 'assets/music/green'},
+    { title: 'Red', duration: 268.45, audioUrl: 'assets/music/red'},
+    { title: 'Pink', duration: 153.14, audioUrl: 'assets/music/pink'},
+    { title: 'Magenta', duration: 374.22, audioUrl: 'assets/music/magenta'}
+    // {title: 'Airbag', duration:'3:43'},
+    // {title: 'Paranoid Android', duration:'4;44'},
+    // {title: 'Subterranean Homesick Alien', duration:'6:23'},
+    // {title: 'Exit Music', duration:'8:32'},
+    // {title: 'Let Down', duration:'5:15'},
+    // {title: 'Karma Police', duration:'3:35'},
+    // {title: 'Fitter Happier', duration:'2:25'},
+    // {title: 'Electioneering', duration:'5:55'}
   ]},
   {
   id:2,
