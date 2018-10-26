@@ -7,7 +7,7 @@ var albums = [
   year: '1997',
   albumArtUrl: 'assets/images/album_covers/003.png',
   songs: [
-    { title: 'airbag', duration: 4.44, audioUrl: 'assets/music/airbag'},
+    { title: 'airbag', duration: 284.01, audioUrl: 'assets/music/airbag'},
     { title: 'Blue', duration: 161.71, audioUrl: 'assets/music/blue'},
     { title: 'Green', duration: 103.96, audioUrl: 'assets/music/green'},
     { title: 'Red', duration: 268.45, audioUrl: 'assets/music/red'},
