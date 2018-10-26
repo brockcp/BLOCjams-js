@@ -3,7 +3,7 @@ var setSong = function(songNumber) {
     currentSoundFile.stop();
   }
   currentlyPlayingSongNumber = parseInt(songNumber);
-  currentSongFromAlbum = chosenAlbum.songs[songNumber - 1];
+  currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
   currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
    formats: [ 'mp3' ],
    preload: true
@@ -53,7 +53,7 @@ var createSongRow = function(songNumber, songName, songLength) {
             currentSoundFile.play();
             updateSeekBarWhileSongPlays();
             $(this).html(pauseButtonTemplate);
-            currentSongFromAlbum = chosenAlbum.songs[songNumber - 1];
+            currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
             updatePlayerBarSong();
             var $volumeFill = $('.volume .fill');
             var $volumeThumb = $('.volume .thumb');
@@ -97,35 +97,35 @@ var createSongRow = function(songNumber, songName, songLength) {
     return $row;
 };
 
-var urlPassedAlbum = window.location.hash.substr(1); //CATCHES SELECTED ALBUMS ID FROM COLLECTION.HTML
-for(var i=0, len=albums.length; i<len; i++){
-  if(albums[i].id == urlPassedAlbum){ //MATCHES urlPassedAlbum TO AN ALBUM WITH SAME ID
-    var chosenAlbum = albums[i];  //chosenAlbum BECOMES VAR FOR PAGES ALBUM
-  }
-}
+// var urlPassedAlbum = window.location.hash.substr(1); //CATCHES SELECTED ALBUMS ID FROM COLLECTION.HTML
+// for(var i=0, len=albums.length; i<len; i++){
+//   if(albums[i].id == urlPassedAlbum){ //MATCHES urlPassedAlbum TO AN ALBUM WITH SAME ID
+//     var chosenAlbum = albums[i];  //chosenAlbum BECOMES VAR FOR PAGES ALBUM
+//   }
+// }
 
 
 var $albumImage = $('.album-cover-art'); //necessary here for click function to work
 
-//var setCurrentAlbum = function(album) {
-//    currentAlbum = album;
+var setCurrentAlbum = function(album) {
+    currentAlbum = album;
     var $albumTitle = $('.album-view-title');
     var $albumArtist = $('.album-view-artist');
     var $albumReleaseInfo = $('.album-view-release-info');
     var $albumImage = $('.album-cover-art');
     var $albumSongList = $('.album-view-song-list');
-    $albumTitle.text(chosenAlbum.title);
-    $albumArtist.text(chosenAlbum.artist);
-    $albumReleaseInfo.text(chosenAlbum.year + ' ' + chosenAlbum.label);
-    $albumImage.attr('src', chosenAlbum.albumArtUrl);
+    $albumTitle.text(album.title);
+    $albumArtist.text(album.artist);
+    $albumReleaseInfo.text(album.year + ' ' + album.label);
+    $albumImage.attr('src', album.albumArtUrl);
 
 
     $albumSongList.empty();
-      for (var j = 0; j < chosenAlbum.songs.length; j++) {
-        var $newRow = createSongRow(j+1, chosenAlbum.songs[j].title ,chosenAlbum.songs[j].duration);
+      for (var j = 0; j < album.songs.length; j++) {
+        var $newRow = createSongRow(j+1, album.songs[j].title ,album.songs[j].duration);
         $albumSongList.append($newRow);
     }
-//};
+};
 
 
 var updateSeekBarWhileSongPlays = function() {
@@ -286,7 +286,14 @@ var $playPause = $('.main-controls .play-pause');
 
 $(document).ready(function() {
 
-//  setCurrentAlbum(albumPicasso);
+  var urlPassedAlbum = window.location.hash.substr(1); //CATCHES SELECTED ALBUMS ID FROM COLLECTION.HTML
+  for(var i=0, len=albums.length; i<len; i++){
+    if(albums[i].id == urlPassedAlbum){ //MATCHES urlPassedAlbum TO AN ALBUM WITH SAME ID
+      var album = albums[i];  //album BECOMES VAR FOR CURRENT ALBUM
+    }
+  }
+
+  setCurrentAlbum(album);
   setupSeekBars();
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
@@ -295,8 +302,8 @@ $(document).ready(function() {
 
 var updatePlayerBarSong = function() {
   $('.currently-playing .song-name').text(currentSongFromAlbum.title);
-  $('.currently-playing .artist-name').text(chosenAlbum.artist);
-  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + chosenAlbum.artist);
+  $('.currently-playing .artist-name').text(currentAlbum.artist);
+  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
   $('.main-controls .play-pause').html(playerBarPauseButton);
   setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
 };
