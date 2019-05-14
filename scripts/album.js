@@ -1,3 +1,18 @@
+var urlPassedAlbum = window.location.hash.substr(1); //CATCHES SELECTED ALBUMS ID FROM COLLECTION.HTML
+for(var i=0, len=albums.length; i<len; i++){
+  if(albums[i].id == urlPassedAlbum){ //MATCHES urlPassedAlbum TO AN ALBUM WITH SAME ID
+    var album = albums[i];  //album BECOMES VAR FOR CURRENT ALBUM
+  }
+}
+
+var updatePlayerBarSong = function() {
+  $('.currently-playing .song-name').text(currentSongFromAlbum.title);
+  $('.currently-playing .artist-name').text(currentAlbum.artist);
+  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
+  $('.main-controls .play-pause').html(playerBarPauseButton);
+  setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
+};
+
 var setSong = function(songNumber) {
   if(currentSoundFile){
     currentSoundFile.stop();
@@ -261,26 +276,12 @@ var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 var $playPause = $('.main-controls .play-pause');
 
-$(document).ready(function() {
-
-  var urlPassedAlbum = window.location.hash.substr(1); //CATCHES SELECTED ALBUMS ID FROM COLLECTION.HTML
-  for(var i=0, len=albums.length; i<len; i++){
-    if(albums[i].id == urlPassedAlbum){ //MATCHES urlPassedAlbum TO AN ALBUM WITH SAME ID
-      var album = albums[i];  //album BECOMES VAR FOR CURRENT ALBUM
-    }
-  }
+//$(document).ready(function() {
 
   setCurrentAlbum(album);
   setupSeekBars();
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
   $playPause.click(togglePlayFromPlayerBar);
-});
 
-var updatePlayerBarSong = function() {
-  $('.currently-playing .song-name').text(currentSongFromAlbum.title);
-  $('.currently-playing .artist-name').text(currentAlbum.artist);
-  $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
-  $('.main-controls .play-pause').html(playerBarPauseButton);
-  setTotalTimeInPlayerBar(currentSongFromAlbum.duration);
-};
+//});
