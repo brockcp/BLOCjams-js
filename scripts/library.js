@@ -7,20 +7,12 @@ var albums = [
   year: '1997',
   albumArtUrl: 'assets/images/album_covers/003.png',
   songs: [
-    {title: 'Airbag', duration:284, audioUrl: 'assets/music/Airbag'},
-    {title: 'Paranoid Android', duration:384, audioUrl: 'assets/music/ParanoidAndroid'},
-    {title: 'Subterranean Homesick Alien', duration:268, audioUrl: 'assets/music/SubterraneanHomesickAlien'},
-    {title: 'Let Down', duration:299, audioUrl: 'assets/music/LetDown'},
-    {title: 'Karma Police', duration:262, audioUrl: 'assets/music/KarmaPolice'},
-    {title: 'No Surprises', duration:229, audioUrl: 'assets/music/NoSurprises'}
-    // {title: 'Airbag', duration:'3:43'},
-    // {title: 'Paranoid Android', duration:'4;44'},
-    // {title: 'Subterranean Homesick Alien', duration:'6:23'},
-    // {title: 'Exit Music', duration:'8:32'},
-    // {title: 'Let Down', duration:'5:15'},
-    // {title: 'Karma Police', duration:'3:35'},
-    // {title: 'Fitter Happier', duration:'2:25'},
-    // {title: 'Electioneering', duration:'5:55'}
+    {title: 'Airbag', duration:37, audioUrl: 'assets/music/Airbag'},
+    {title: 'Paranoid Android', duration:50, audioUrl: 'assets/music/ParanoidAndroid'},
+    {title: 'Subterranean Homesick Alien', duration:27, audioUrl: 'assets/music/SubterraneanHomesickAlien'},
+    {title: 'Let Down', duration:32, audioUrl: 'assets/music/LetDown'},
+    {title: 'Karma Police', duration:28, audioUrl: 'assets/music/KarmaPolice'},
+    {title: 'No Surprises', duration:19, audioUrl: 'assets/music/NoSurprises'}
   ]},
   {
   id:2,
