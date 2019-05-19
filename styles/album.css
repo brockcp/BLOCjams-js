@@ -1,5 +1,5 @@
 body.album {
-     background-image: url(../assets/images/blurred_backgrounds/blur_bg_3.jpg);
+     background-image: url(../assets/images/orion-album.jpg);
      background-repeat: no-repeat;
      background-attachment: fixed;
      background-position: center center;
@@ -63,8 +63,8 @@ body.album {
  .album-song-button{
    text-align: center;
    font-size: 14px;
-   background-color: white;
-   color: rgb(210, 40, 123);
+   /* background-color: white; */
+   color: #444444; /*rgb(210, 40, 123);*/
    border-radius: 50% 50%;
    padding-top:7px;/*BROCK ADDED 4/23*/
    display: inline-block;
@@ -75,7 +75,7 @@ body.album {
  .album-song-button:hover{
    cursor:pointer;
    color:white;
-   background-color: rgb(210, 40, 123);
+   /*background-color: #444444; rgb(210, 40, 123);*/
  }
 
  album-song-button span{

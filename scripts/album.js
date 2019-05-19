@@ -263,10 +263,10 @@ var togglePlayFromPlayerBar = function () {
   }
 };
 
-var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
-var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-var playerBarPlayButton = '<span class="ion-play"></span>';
-var playerBarPauseButton = '<span class="ion-pause"></span>';
+var playButtonTemplate = '<a class="album-song-button"><i class="fas fa-play"></i></a>';
+var pauseButtonTemplate = '<a class="album-song-button"><i class="fas fa-play"></i></a>';
+var playerBarPlayButton = '<i class="fas fa-play"></i>';
+var playerBarPauseButton = '<i class="fas fa-pause"></i>';
 var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
